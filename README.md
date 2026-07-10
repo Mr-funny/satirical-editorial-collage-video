@@ -21,7 +21,7 @@
 - Codex 可读取这个 skill。
 - 可用的 GPT / Nano Banana 生图入口。
 - 可用的 Grok CLI 或其他支持 image-to-video / reference-to-video 的视频工具。
-- 如果用 Grok CLI，本项目默认按用户本机路径 `/Users/huangweihong/.grok/bin/grok` 和本地代理 `socks5h://127.0.0.1:10808` 编写示例命令。
+- 如果用 Grok CLI，请确保 `gh` / `grok` 等需要的命令已经在你的 shell `PATH` 里可用。
 - 用 ffmpeg 抽帧检查时，建议从主视频流抽尾帧，避免拿到封面图。
 
 ## 安装

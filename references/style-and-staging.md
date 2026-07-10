@@ -239,7 +239,7 @@ For Grok/Seedance-style video generation:
 - If comparing methods, create both an `image_to_video` prompt and a first/tail `reference_to_video` prompt.
 - If using single final reference assembly, pass only the full final image to `reference_to_video` and describe the blank starting stage in the prompt.
 - Save outputs as `shot_01.mp4`, `shot_02.mp4`, etc.
-- For this user's Grok CLI, always start Grok with the proxy environment by default: `HTTPS_PROXY=socks5h://127.0.0.1:10808`, `HTTP_PROXY=$HTTPS_PROXY`, and `ALL_PROXY=$HTTPS_PROXY`. Then call `/Users/huangweihong/.grok/bin/grok --prompt-file grok_prompts/shot_01.md --cwd "$(pwd)" --permission-mode bypassPermissions --max-turns 8 --output-format plain`.
+- For Grok CLI, prefer `grok` on `PATH` or a user-provided `GROK_BIN`. If the user's network needs a proxy, they should configure standard proxy environment variables before running the command.
 - Grok Build's media path is agent-tool based: it calls `image_to_video` internally and may save first to `~/.grok/sessions/.../videos/1.mp4`; prompt it to copy the mp4 to the requested shot filename.
 - If chaining clips, extract the real tail frame with ffmpeg from the main video stream: `ffmpeg -y -sseof -0.08 -i shot_01.mp4 -map 0:v:0 -frames:v 1 tail_01.png`.
 - Do not use QuickLook thumbnails for tail frames.

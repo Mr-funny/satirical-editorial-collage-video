@@ -368,15 +368,12 @@ def write_outputs(out_dir: Path, shots: list[dict], args: argparse.Namespace) ->
         "#!/usr/bin/env bash",
         "set -euo pipefail",
         "",
-        "GROK_BIN=\"${GROK_BIN:-/Users/huangweihong/.grok/bin/grok}\"",
-        "if [ ! -x \"$GROK_BIN\" ]; then GROK_BIN=\"grok\"; fi",
-        "export HTTPS_PROXY=\"${BROLL_GROK_PROXY:-socks5h://127.0.0.1:10808}\"",
-        "export HTTP_PROXY=\"$HTTPS_PROXY\"",
-        "export ALL_PROXY=\"$HTTPS_PROXY\"",
+        "GROK_BIN=\"${GROK_BIN:-grok}\"",
         "",
         "# Replace gpt-image with your local GPT image command.",
         "# The Grok commands are real Grok Build agent invocations: they ask Grok to call image_to_video,",
         "# then copy the generated mp4 from its session videos folder to the stable shot filename.",
+        "# If your network needs a proxy, configure HTTPS_PROXY/HTTP_PROXY/ALL_PROXY before running this script.",
         "",
     ]
     for shot in shots:

@@ -1,13 +1,13 @@
 You must create a real video file now using reference_to_video with two images: image 1 is the exact first frame and image 2 is the target tail frame. Do not write a description or code.
 
 Image 1, first frame:
-/Users/huangweihong/Desktop/skill汇总/Clip_art_skill/outputs/emotion_control_90s_broll/first_frame_90_seconds.png
+assets/examples/emotion-control-90s/first_frame_90_seconds.png
 
 Image 2, target tail frame:
-/Users/huangweihong/Desktop/skill汇总/Clip_art_skill/outputs/emotion_control_90s_broll/tail_frame_feed_the_flame.png
+assets/examples/emotion-control-90s/tail_frame_feed_the_flame.png
 
 Save or copy the generated mp4 exactly here:
-/Users/huangweihong/Desktop/skill汇总/Clip_art_skill/outputs/emotion_control_90s_broll/emotion_control_90s_first_tail.mp4
+assets/examples/emotion-control-90s/emotion_control_90s_first_tail.mp4
 
 Duration: 6 seconds.
 Resolution: 720p vertical if available.
@@ -32,4 +32,4 @@ Timeline:
 Stability rules:
 Keep the camera locked. Keep the bottom "90 SECONDS" label readable. Keep the green paper background unchanged. No gore, no violence, no flags, no politicians, no magazine border, no watermark. Do not make the flame a wildfire. Do not add people or faces. Do not turn this into a literal science infographic.
 
-At the end, verify the mp4 exists at the requested path and print only that absolute path.
+At the end, verify the mp4 exists at the requested path and print only that path.

@@ -144,16 +144,14 @@ When the text has mixed emotions, let the background carry the dominant emotion 
 
 ## Grok CLI Video Trigger
 
-On this user's machine, prefer `/Users/huangweihong/.grok/bin/grok` when it exists. The Grok CLI is a Grok Build agent, not a simple `grok-video` binary. Trigger video generation by running `grok -p` with a prompt that explicitly tells Grok to use its media generation capability, preferably first/tail `reference_to_video` when two generated frames exist, then save or copy the generated mp4 to the requested shot path.
+Prefer the `grok` executable available on `PATH`, or let the user provide `GROK_BIN` when their installation uses a custom location. The Grok CLI is a Grok Build agent, not a simple `grok-video` binary. Trigger video generation by running `grok` with a prompt file that explicitly tells Grok to use its media generation capability, preferably first/tail `reference_to_video` when two generated frames exist, then save or copy the generated mp4 to the requested shot path.
 
 Use this shape for each shot after its still image exists:
 
 ```bash
-export HTTPS_PROXY=socks5h://127.0.0.1:10808
-export HTTP_PROXY="$HTTPS_PROXY"
-export ALL_PROXY="$HTTPS_PROXY"
+GROK_BIN="${GROK_BIN:-grok}"
 
-/Users/huangweihong/.grok/bin/grok \
+"$GROK_BIN" \
   --prompt-file grok_prompts/shot_01.md \
   --cwd "$(pwd)" \
   --permission-mode bypassPermissions \
@@ -161,7 +159,7 @@ export ALL_PROXY="$HTTPS_PROXY"
   --output-format plain
 ```
 
-The generated video may first appear under `~/.grok/sessions/.../videos/1.mp4`; the prompt must tell Grok to copy it to `shot_01.mp4`. Run Grok with the proxy environment above by default. Override the proxy with `BROLL_GROK_PROXY` only when a different local proxy endpoint is needed.
+If the user's network requires a proxy, let them configure proxy environment variables outside the skill. The generated video may first appear under `~/.grok/sessions/.../videos/1.mp4`; the prompt must tell Grok to copy it to `shot_01.mp4`.
 
 For tail-frame chaining after a generated clip, extract the real tail frame from the main video stream, not a QuickLook thumbnail:
 
