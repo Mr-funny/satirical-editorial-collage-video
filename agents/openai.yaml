@@ -1,0 +1,4 @@
+interface:
+  display_name: "B-roll Shot Builder"
+  short_description: "Split B-roll ideas into staged image/video shots"
+  default_prompt: "Use $broll-shot-builder to turn this B-roll idea into staged image prompts, video prompts, and an assembly plan."
