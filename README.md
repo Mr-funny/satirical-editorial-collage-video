@@ -84,21 +84,27 @@ Do not reveal the full tail composition early.
 - “不做反应”是一只阻挡纸团继续投喂的手。
 - “90 SECONDS” 是稳定信息锚点。
 
-首帧：
+### 生产素材
 
-![First frame](assets/examples/emotion-control-90s/first_frame_90_seconds.png)
+| 素材 | 用途 | 预览 / 链接 |
+| --- | --- | --- |
+| 首帧图 | 视频必须从稀疏画面开始，只保留面板和 `90 SECONDS` 锚点。 | <img src="assets/examples/emotion-control-90s/first_frame_90_seconds.png" width="220" alt="first frame"> |
+| 尾帧图 | 作为 reference-to-video 的目标构图，锁定脑炉、火苗、纸团、秒表和手势。 | <img src="assets/examples/emotion-control-90s/tail_frame_feed_the_flame.png" width="220" alt="tail frame"> |
+| 生成视频 | Grok / Seedance 按首尾帧逻辑生成的真实视频。 | [emotion_control_90s_first_tail.mp4](assets/examples/emotion-control-90s/emotion_control_90s_first_tail.mp4) |
+| 实际尾帧 | 从生成视频主视频流里抽出的真实最后状态，用来验证是否接近尾帧。 | <img src="assets/examples/emotion-control-90s/tail_actual_90s.png" width="220" alt="actual tail frame"> |
+| 抽帧联络表 | 一眼检查元素是不是逐步入场，而不是一开始完整出现。 | <img src="assets/examples/emotion-control-90s/contact_sheet_90s.png" width="520" alt="contact sheet"> |
+| Grok 动画 prompt | 真实用于生成视频的 first-tail reference-to-video 提示词。 | [grok_prompt_first_tail_90s.md](prompts/grok_prompt_first_tail_90s.md) |
 
-尾帧：
+### 逐秒抽帧
 
-![Tail frame](assets/examples/emotion-control-90s/tail_frame_feed_the_flame.png)
-
-生成视频：
-
-[emotion_control_90s_first_tail.mp4](assets/examples/emotion-control-90s/emotion_control_90s_first_tail.mp4)
-
-抽帧检查：
-
-![Contact sheet](assets/examples/emotion-control-90s/contact_sheet_90s.png)
+| 约略时间 | 画面状态 | 抽帧 |
+| --- | --- | --- |
+| 0s | 空面板 + `90 SECONDS`，没有主物件。 | <img src="assets/examples/emotion-control-90s/frames/anger_01.png" width="150" alt="frame 1"> |
+| 1s | 继续保持稀疏，确认不是从完整尾帧开始。 | <img src="assets/examples/emotion-control-90s/frames/anger_02.png" width="150" alt="frame 2"> |
+| 2s | 脑炉作为主暗喻入场。 | <img src="assets/examples/emotion-control-90s/frames/anger_03.png" width="150" alt="frame 3"> |
+| 3s | 火苗、纸团和秒表开始出现。 | <img src="assets/examples/emotion-control-90s/frames/anger_04.png" width="150" alt="frame 4"> |
+| 4s | 纸团标签和投喂路径稳定下来。 | <img src="assets/examples/emotion-control-90s/frames/anger_05.png" width="150" alt="frame 5"> |
+| 5s | `NO REACTION` 手势入场并阻挡投喂。 | <img src="assets/examples/emotion-control-90s/frames/anger_06.png" width="150" alt="frame 6"> |
 
 这个示例的结果是：开头保持空面板和 `90 SECONDS`，随后脑炉、火苗、想法纸团、秒表和 `NO REACTION` 手势逐步出现，最后稳定成尾帧。
 
