@@ -49,7 +49,7 @@ Recommended 6-second rhythm:
 
 ## First/Tail Frame Workflow
 
-Default to first/tail planning for B-roll:
+Default to first/tail planning for satirical editorial collage videos:
 
 1. Read the script.
 2. Select one visualizable excerpt.
@@ -160,7 +160,7 @@ Do not reuse green by habit. If the script's dominant feeling is anger, heat, co
 First-frame image prompt:
 
 ```text
-Create a sparse [aspect ratio] first frame for a short B-roll animation.
+Create a sparse [aspect ratio] first frame for a short satirical editorial collage animation.
 Scene: [blank/sparse starting state].
 Persistent style: [style string repeated verbatim].
 Emotion and palette: [dominant emotion, panel color, accent colors, why].
@@ -174,7 +174,7 @@ Avoid: no [tail-frame elements], no characters, no icons, no relationship lines,
 Tail-frame image prompt:
 
 ```text
-Create the full [aspect ratio] tail frame for the same B-roll animation.
+Create the full [aspect ratio] tail frame for the same satirical editorial collage animation.
 Scene: [complete final metaphor state].
 Persistent style: [same style string repeated verbatim].
 Emotion and palette: [same dominant emotion, same panel color, same accents].

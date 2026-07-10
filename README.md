@@ -1,8 +1,15 @@
-# B-roll Shot Builder
+# Satirical Editorial Collage Video
 
-把长文案转成“首帧图片 + 尾帧图片 + 视频动画提示词”的 B-roll 制作 skill。
+![GPT Image](https://img.shields.io/badge/GPT-Image-111111?logo=openai&logoColor=white)
+![Grok Video](https://img.shields.io/badge/Grok-Video-111111?logo=x&logoColor=white)
+![First Tail Frames](https://img.shields.io/badge/First--Tail-Frames-8A2D2D)
+![Satirical Editorial Collage](https://img.shields.io/badge/Satirical_Editorial-Collage-D6B15E)
+
+把长文案转成“讽刺社论拼贴动画”风格视频的 Codex skill。
 
 核心逻辑来自这种分帧方法：不要让一个完整画面一开始就动，而是先生成一个空白或稀疏的首帧，再生成一个完整尾帧，然后让视频模型按时间线把元素一下一下添加、移除或变化，最后稳定到尾帧。
+
+默认工具链是：GPT / Nano Banana 生成首帧和尾帧，Grok / Seedance 生成 first-tail reference-to-video。
 
 ## 适合做什么
 
@@ -26,18 +33,20 @@
 
 ## 安装
 
-把 `broll-shot-builder` 文件夹复制到 Codex skills 目录：
+把 `satirical-editorial-collage-video` 文件夹复制到 Codex skills 目录：
 
 ```bash
 mkdir -p ~/.codex/skills
-cp -R broll-shot-builder ~/.codex/skills/
+cp -R satirical-editorial-collage-video ~/.codex/skills/
 ```
 
-之后在 Codex 里可以这样触发：
+之后在 Codex 里自然说一句就可以触发：
 
 ```text
-使用 $broll-shot-builder，根据这段文案生成一段 B-roll。先读文案，选一小段，策划暗喻，然后写首帧 prompt、尾帧 prompt、动画 prompt，并按首尾帧方法生成视频。
+帮我根据这段文本生成一段讽刺社论拼贴动画风格视频。
 ```
+
+你不需要在请求里解释“先读文案、选片段、写首尾帧 prompt、再用 Grok 做视频”。这些拆解步骤由 skill 自动完成。
 
 ## 请求流程
 
@@ -68,34 +77,27 @@ Do not reveal the full tail composition early.
 5.5-6.0s: hold a stable final frame close to image 2.
 ```
 
-## 示例：情绪掌控 90 秒
+## 案例库
 
-选取文案：
+下面三个案例来自同一段“掌控情绪”长文案里的三个不同观点。它们展示的是 skill 应该如何自动选段、提炼暗喻、规划首尾帧和动画节奏，而不是把同一个句子重复包装三遍。
 
-```text
-愤怒这种情绪，在你全身运作大概就是九十秒。
-但是你之所以一直愤怒，是因为你在不间断地想这件事情。
-```
+| 案例 | 选取文案 | 讽刺社论拼贴隐喻 | 素材 |
+| --- | --- | --- | --- |
+| 01. 90 秒不反应 | “愤怒这种情绪，在你全身运作大概就是九十秒。但是你之所以一直愤怒，是因为你在不间断地想这件事情。” | 愤怒是一台脑炉里的小火苗；反复想是投喂燃料；`NO REACTION` 是阻断燃料的手。 | [Prompt pack](assets/examples/emotion-control-90s/prompts.md) / [Grok prompt](prompts/grok_prompt_first_tail_90s.md) |
+| 02. 愤怒是面具 | “愤怒是表象情绪，它不是本质情绪。愤怒是用来保护受伤、恐惧、羞耻、尴尬等情绪的。” | 愤怒是一张红色戏剧面具，面具下面藏着 `HURT / FEAR / SHAME / EMBARRASSMENT`。 | [Prompt pack](assets/examples/emotion-reveal-case/prompts.md) |
+| 03. 掌控游戏 | “骂你的人开启了这场游戏。你做出反应，是不是在人家的预判之内？” | 辱骂是一台被对方预设好的街机；你不接手柄，就走出对方射程。 | [Prompt pack](assets/examples/control-game-case/prompts.md) |
 
-画面暗喻：
-
-- 愤怒是一台脑炉里的小火苗。
-- 反复想这件事，是不断投喂火苗的纸团燃料。
-- “不做反应”是一只阻挡纸团继续投喂的手。
-- “90 SECONDS” 是稳定信息锚点。
-
-### 生产素材
+### 案例 01：真实视频预览
 
 | 素材 | 用途 | 预览 / 链接 |
 | --- | --- | --- |
 | 首帧图 | 视频必须从稀疏画面开始，只保留面板和 `90 SECONDS` 锚点。 | <img src="assets/examples/emotion-control-90s/first_frame_90_seconds.png" width="220" alt="first frame"> |
 | 尾帧图 | 作为 reference-to-video 的目标构图，锁定脑炉、火苗、纸团、秒表和手势。 | <img src="assets/examples/emotion-control-90s/tail_frame_feed_the_flame.png" width="220" alt="tail frame"> |
-| 生成视频 | Grok / Seedance 按首尾帧逻辑生成的真实视频。 | [emotion_control_90s_first_tail.mp4](assets/examples/emotion-control-90s/emotion_control_90s_first_tail.mp4) |
+| 生成视频 | Grok / Seedance 按首尾帧逻辑生成的真实视频。 | <video src="assets/examples/emotion-control-90s/emotion_control_90s_first_tail.mp4" controls width="520"></video> |
 | 实际尾帧 | 从生成视频主视频流里抽出的真实最后状态，用来验证是否接近尾帧。 | <img src="assets/examples/emotion-control-90s/tail_actual_90s.png" width="220" alt="actual tail frame"> |
 | 抽帧联络表 | 一眼检查元素是不是逐步入场，而不是一开始完整出现。 | <img src="assets/examples/emotion-control-90s/contact_sheet_90s.png" width="520" alt="contact sheet"> |
-| Grok 动画 prompt | 真实用于生成视频的 first-tail reference-to-video 提示词。 | [grok_prompt_first_tail_90s.md](prompts/grok_prompt_first_tail_90s.md) |
 
-### 逐秒抽帧
+### 案例 01：逐秒抽帧
 
 | 约略时间 | 画面状态 | 抽帧 |
 | --- | --- | --- |
@@ -106,14 +108,12 @@ Do not reveal the full tail composition early.
 | 4s | 纸团标签和投喂路径稳定下来。 | <img src="assets/examples/emotion-control-90s/frames/anger_05.png" width="150" alt="frame 5"> |
 | 5s | `NO REACTION` 手势入场并阻挡投喂。 | <img src="assets/examples/emotion-control-90s/frames/anger_06.png" width="150" alt="frame 6"> |
 
-这个示例的结果是：开头保持空面板和 `90 SECONDS`，随后脑炉、火苗、想法纸团、秒表和 `NO REACTION` 手势逐步出现，最后稳定成尾帧。
-
 ## 脚本用法
 
 生成可复制的 prompt 包：
 
 ```bash
-python3 scripts/build_broll_plan.py \
+python3 scripts/build_satirical_editorial_collage_plan.py \
   --concept "anger is a small flame in a brain furnace, repetitive thoughts feed it, no reaction blocks the fuel" \
   --source-text "愤怒这种情绪，在你全身运作大概就是九十秒。但是你之所以一直愤怒，是因为你在不间断地想这件事情。" \
   --excerpt "愤怒这种情绪，在你全身运作大概就是九十秒。" \

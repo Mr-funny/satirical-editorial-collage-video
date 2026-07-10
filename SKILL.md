@@ -1,13 +1,19 @@
 ---
-name: broll-shot-builder
-description: Build stylized B-roll production plans from concepts or pasted scripts by reading the text, selecting a visualizable excerpt, mapping it to metaphors, then producing first-frame prompts, tail-frame prompts, and animation prompts for GPT/Nano Banana image generation plus Seedance/Grok first-tail-frame video generation. Use when Codex needs script-to-B-roll workflows,首尾帧 animation logic, reference-to-video prompts, retro editorial/collage motion, staged entrances/exits/transformations, or assembly plans for short social/video B-roll.
+name: satirical-editorial-collage-video
+description: Generate staged satirical editorial collage videos from pasted text by selecting visualizable excerpts, turning them into Western editorial satire and literary metaphors, generating first-frame and tail-frame images with GPT/Nano Banana by default, then generating first-tail reference videos with Grok/Seedance by default. Use when the user asks to make a video from text, generate a satirical editorial collage animation, create magazine-style cutout allegory motion, or turn commentary/scripts into metaphorical short videos.
 ---
 
-# B-roll Shot Builder
+# Satirical Editorial Collage Video
 
 ## Core Pattern
 
-Convert a pasted script, argument, or single long-shot idea into a chain of short clips. Each clip must be planned as a **first frame -> tail frame -> animation prompt** unit. The first frame is sparse, the tail frame is the intended final composition, and the animation prompt controls how the video travels between them.
+Convert a pasted script, argument, or single long-shot idea into a chain of short satirical editorial collage clips. Each clip must be planned as a **first frame -> tail frame -> animation prompt** unit. The first frame is sparse, the tail frame is the intended final composition, and the animation prompt controls how the video travels between them.
+
+Default tool chain:
+
+1. Use GPT/Nano Banana style image generation for first-frame and tail-frame stills.
+2. Use Grok/Seedance style video generation for first-tail reference-to-video.
+3. Extract frames after generation to validate that the video starts sparse, assembles elements gradually, and ends near the tail frame.
 
 Use three layers of rhythm:
 
@@ -31,7 +37,7 @@ Supported visual changes:
 ## Workflow
 
 1. If the user provides a long script or pasted argument, select a compact excerpt with high visual metaphor potential. Prefer one thesis, contrast, or turning point over trying to cover the whole text.
-2. Think before prompting. Rewrite the excerpt as a B-roll premise: `abstract idea -> emotional temperature -> conflict/irony -> visible metaphor -> staged visual changes`.
+2. Think before prompting. Rewrite the excerpt as a satirical editorial collage premise: `abstract idea -> emotional temperature -> conflict/irony -> visible metaphor -> staged visual changes`.
 3. Extract the target format, duration, tools, and available reference images/video.
 4. Choose the panel color from the text emotion. Do not default to a green board. Use color as narrative pressure: green for analytical control, red/coral for anger or alarm, yellow/mustard for irony, blue/gray for distance or melancholy, black/cream for bureaucracy or menace.
 5. Identify stable elements, first-frame elements, tail-frame elements, entering elements, exiting elements, transforming elements, relationship changes, and motion-only elements.
@@ -54,7 +60,7 @@ Supported visual changes:
 
 ## First/Tail Frame Logic
 
-Prefer first/tail-frame generation for serious B-roll because it separates composition from motion:
+Prefer first/tail-frame generation for serious satirical editorial collage videos because it separates composition from motion:
 
 - **First frame prompt:** describe the blank or sparse stage. Include exact aspect ratio, background, label text, paper texture, and empty space. Explicitly exclude final elements.
 - **Tail frame prompt:** describe the final composition with all important elements present. This is where visual certainty comes from.
@@ -108,7 +114,7 @@ Do not crossfade. Do not morph the whole reference image in at once. Do not reve
 
 If a local video tool requires at least two image entries for `reference_to_video`, pass the same final reference image twice and state that there is only one unique reference image. This satisfies the tool schema while preserving the single-reference method. Verify with extracted frames, because some models may still start from the reference image despite the prompt.
 
-## Script-to-B-roll Selection
+## Script-to-Video Selection
 
 For pasted prose, do not visualize every sentence. Pick a short segment that can be shown as motion. Good candidates include:
 
@@ -171,12 +177,12 @@ If the MP4 includes an attached picture stream, `-map 0:v:0` prevents accidental
 
 ## Planning Script
 
-Use `scripts/build_broll_plan.py` when the user wants a reusable plan or batchable prompts.
+Use `scripts/build_satirical_editorial_collage_plan.py` when the user wants a reusable plan or batchable prompts.
 
 Minimal example:
 
 ```bash
-python3 scripts/build_broll_plan.py \
+python3 scripts/build_satirical_editorial_collage_plan.py \
   --concept "a woman running inside a hamster wheel while productivity icons float in" \
   --elements "background+title,hamster wheel,woman runner,icons" \
   --style "retro editorial collage, warm paper texture, jazz percussion, clock tick rhythm" \
@@ -189,7 +195,7 @@ The script writes `shot_plan.json`, `prompts.md`, `assemble_manifest.json`, `cli
 
 Read `references/style-and-staging.md` when you need more detailed shot grammar, style recipes, or prompt patterns. Use it especially for:
 
-- recreating the retro Nano Banana + Seedance-style B-roll described by the user
+- recreating the retro Nano Banana + Seedance-style staged satirical editorial collage animation described by the user
 - deciding how to split complex compositions into additive shots
 - adapting prompts for local GPT image generation and Grok/Seedance-style video generation
 

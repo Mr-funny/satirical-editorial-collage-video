@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build staged B-roll shot plans and prompts."""
+"""Build staged satirical editorial collage video plans and prompts."""
 
 from __future__ import annotations
 
@@ -170,7 +170,7 @@ def first_frame_prompt(args: argparse.Namespace, idx: int, persistent: list[str]
     emotion, palette = infer_palette(args.emotion, args.source_text, args.concept)
     return dedent(
         f"""
-        Create a sparse {args.aspect} first frame for a short B-roll animation.
+        Create a sparse {args.aspect} first frame for a short satirical editorial collage animation.
         Scene concept: {args.concept}.
         Selected excerpt: {args.excerpt or "not specified"}.
         Emotion and palette: dominant emotion is {emotion}; use {palette}. Choose the panel color from this emotion, not a fixed green board.
@@ -188,7 +188,7 @@ def tail_frame_prompt(args: argparse.Namespace, visible: list[str], element: str
     emotion, palette = infer_palette(args.emotion, args.source_text, args.concept)
     return dedent(
         f"""
-        Create the full {args.aspect} tail frame for the same short B-roll animation.
+        Create the full {args.aspect} tail frame for the same short satirical editorial collage animation.
         Scene concept: {args.concept}.
         Selected excerpt: {args.excerpt or "not specified"}.
         Emotion and palette: dominant emotion is {emotion}; use {palette}. Match the first frame palette exactly.
@@ -244,7 +244,7 @@ def build_plan(args: argparse.Namespace) -> list[dict]:
             "tail_frame_prompt": tail_prompt,
             "image_prompt": dedent(
                 f"""
-                Create a {args.aspect} reference frame for a short B-roll animation.
+                Create a {args.aspect} reference frame for a short satirical editorial collage animation.
                 Scene concept: {args.concept}.
                 Current shot state: {", ".join(visible)} are visible.
                 Persistent style: {args.style}.
@@ -307,7 +307,7 @@ def write_outputs(out_dir: Path, shots: list[dict], args: argparse.Namespace) ->
 
     pack_emotion, pack_palette = infer_palette(args.emotion, args.source_text, args.concept)
     prompt_sections = [
-        f"# B-roll Prompt Pack\n\nConcept: {args.concept}\n\nExcerpt: {args.excerpt or 'not specified'}\n\nEmotion: {pack_emotion}\n\nPalette: {pack_palette}\n\nStyle: {args.style}\n\nAspect: {args.aspect}\n"
+        f"# Satirical Editorial Collage Prompt Pack\n\nConcept: {args.concept}\n\nExcerpt: {args.excerpt or 'not specified'}\n\nEmotion: {pack_emotion}\n\nPalette: {pack_palette}\n\nStyle: {args.style}\n\nAspect: {args.aspect}\n"
     ]
     for shot in shots:
         shot_no = shot["shot"]
@@ -392,9 +392,9 @@ def write_outputs(out_dir: Path, shots: list[dict], args: argparse.Namespace) ->
 
 
 def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Build staged B-roll shot prompts from concepts or selected script excerpts.")
-    parser.add_argument("--concept", required=True, help="One-sentence B-roll concept.")
-    parser.add_argument("--source-text", default="", help="Original pasted script or prose that inspired the B-roll.")
+    parser = argparse.ArgumentParser(description="Build staged satirical editorial collage video prompts from concepts or selected script excerpts.")
+    parser.add_argument("--concept", required=True, help="One-sentence satirical editorial collage video concept.")
+    parser.add_argument("--source-text", default="", help="Original pasted script or prose that inspired the video.")
     parser.add_argument("--excerpt", default="", help="Selected excerpt to visualize.")
     parser.add_argument("--elements", required=True, help="Comma-separated staged elements in entrance order.")
     parser.add_argument("--emotion", default="", help="Optional dominant emotion. If omitted, infer from concept/source text.")

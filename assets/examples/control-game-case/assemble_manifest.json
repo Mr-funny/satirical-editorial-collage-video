@@ -1,0 +1,31 @@
+{
+  "aspect": "9:16 vertical",
+  "total_duration_seconds": 6.0,
+  "audio": "retro jazz percussion with light clock tick bed",
+  "clips": [
+    {
+      "file": "shot_01.mp4",
+      "duration_seconds": 1.5,
+      "transition": "hard cut or 2-4 frame match cut",
+      "audio_cue": "retro percussion hit / clock tick on entrance"
+    },
+    {
+      "file": "shot_02.mp4",
+      "duration_seconds": 1.5,
+      "transition": "hard cut or 2-4 frame match cut",
+      "audio_cue": "retro percussion hit / clock tick on entrance"
+    },
+    {
+      "file": "shot_03.mp4",
+      "duration_seconds": 1.5,
+      "transition": "hard cut or 2-4 frame match cut",
+      "audio_cue": "retro percussion hit / clock tick on entrance"
+    },
+    {
+      "file": "shot_04.mp4",
+      "duration_seconds": 1.5,
+      "transition": "hard cut or 2-4 frame match cut",
+      "audio_cue": "retro percussion hit / clock tick on entrance"
+    }
+  ]
+}

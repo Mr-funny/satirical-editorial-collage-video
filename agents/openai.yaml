@@ -1,4 +1,4 @@
 interface:
-  display_name: "B-roll Shot Builder"
-  short_description: "Split B-roll ideas into staged image/video shots"
-  default_prompt: "Use $broll-shot-builder to turn this B-roll idea into staged image prompts, video prompts, and an assembly plan."
+  display_name: "Satirical Editorial Collage Video"
+  short_description: "Generate satirical editorial collage videos from text"
+  default_prompt: "帮我根据这段文本生成一段讽刺社论拼贴动画风格视频。"
