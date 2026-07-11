@@ -92,11 +92,15 @@ Do not reveal the full tail composition early.
 
 ### 案例 01：真实视频预览
 
+<div align="center">
+  <video src="https://github.com/Mr-funny/satirical-editorial-collage-video/raw/refs/heads/main/assets/examples/emotion-control-90s/emotion_control_90s_first_tail.mp4" width="100%" controls></video>
+</div>
+
 | 素材 | 用途 | 预览 / 链接 |
 | --- | --- | --- |
 | 首帧图 | 视频必须从稀疏画面开始，只保留面板和一个很小的时间锚点。 | <img src="assets/examples/emotion-control-90s/first_frame_90_seconds.png" width="220" alt="first frame"> |
 | 尾帧图 | 作为 reference-to-video 的目标构图，锁定脑炉、火苗、纸团、秒表和阻挡手势。 | <img src="assets/examples/emotion-control-90s/tail_frame_feed_the_flame.png" width="220" alt="tail frame"> |
-| 生成视频 | Grok / Seedance 按首尾帧逻辑生成的真实视频。 | <video src="assets/examples/emotion-control-90s/emotion_control_90s_first_tail.mp4" controls width="520"></video> |
+| 生成视频 | Grok / Seedance 按首尾帧逻辑生成的真实视频。 | [emotion_control_90s_first_tail.mp4](assets/examples/emotion-control-90s/emotion_control_90s_first_tail.mp4) |
 | 实际尾帧 | 从生成视频主视频流里抽出的真实最后状态，用来验证是否接近尾帧。 | <img src="assets/examples/emotion-control-90s/tail_actual_90s.png" width="220" alt="actual tail frame"> |
 | 抽帧联络表 | 一眼检查元素是不是逐步入场，而不是一开始完整出现。 | <img src="assets/examples/emotion-control-90s/contact_sheet_90s.png" width="520" alt="contact sheet"> |
 
@@ -113,22 +117,30 @@ Do not reveal the full tail composition early.
 
 ### 案例 02：真实视频预览
 
+<div align="center">
+  <video src="https://github.com/Mr-funny/satirical-editorial-collage-video/raw/refs/heads/main/assets/examples/emotion-reveal-case/emotion_reveal_visual_first.mp4" width="100%" controls></video>
+</div>
+
 | 素材 | 用途 | 预览 / 链接 |
 | --- | --- | --- |
 | 首帧图 | 空红色剧场纸面，只保留挂钩和阴影，不提前出现观点文字。 | <img src="assets/examples/emotion-reveal-case/first_frame_anger_mask.png" width="220" alt="anger mask first frame"> |
 | 尾帧图 | 作为目标构图：愤怒面具被抬起，露出裂纹心脏、盾牌、冷汗和阴影。 | <img src="assets/examples/emotion-reveal-case/tail_frame_anger_mask.png" width="220" alt="anger mask tail frame"> |
-| 生成视频 | Grok 生成主体动作，组装时补入精确空首帧，保证开头稀疏。 | <video src="assets/examples/emotion-reveal-case/emotion_reveal_visual_first.mp4" controls width="520"></video> |
+| 生成视频 | Grok 生成主体动作，组装时补入精确空首帧，保证开头稀疏。 | [emotion_reveal_visual_first.mp4](assets/examples/emotion-reveal-case/emotion_reveal_visual_first.mp4) |
 | Grok 原片 | 未组装的 Grok 原始生成片段，用来对比模型自身的首帧倾向。 | [emotion_reveal_visual_first_grok_raw.mp4](assets/examples/emotion-reveal-case/emotion_reveal_visual_first_grok_raw.mp4) |
 | 实际尾帧 | 从最终视频主视频流抽出的真实尾帧。 | <img src="assets/examples/emotion-reveal-case/tail_actual_anger_mask.png" width="220" alt="anger mask actual tail frame"> |
 | 抽帧联络表 | 检查是否从空面板开始，再让面具和内部物件逐步出现。 | <img src="assets/examples/emotion-reveal-case/contact_sheet_anger_mask.png" width="520" alt="anger mask contact sheet"> |
 
 ### 案例 03：真实视频预览
 
+<div align="center">
+  <video src="https://github.com/Mr-funny/satirical-editorial-collage-video/raw/refs/heads/main/assets/examples/control-game-case/control_game_visual_first.mp4" width="100%" controls></video>
+</div>
+
 | 素材 | 用途 | 预览 / 链接 |
 | --- | --- | --- |
 | 首帧图 | 空黄版，只留下左侧街机阴影和右侧逃离空间。 | <img src="assets/examples/control-game-case/first_frame_control_game.png" width="220" alt="control game first frame"> |
 | 尾帧图 | 作为目标构图：街机伸出手柄和靶线，角色走出射程，操控线松掉。 | <img src="assets/examples/control-game-case/tail_frame_control_game.png" width="220" alt="control game tail frame"> |
-| 生成视频 | Grok 按首尾帧逻辑生成的真实视频。 | <video src="assets/examples/control-game-case/control_game_visual_first.mp4" controls width="520"></video> |
+| 生成视频 | Grok 按首尾帧逻辑生成的真实视频。 | [control_game_visual_first.mp4](assets/examples/control-game-case/control_game_visual_first.mp4) |
 | Grok 原片 | Grok 原始生成片段，当前最终版与原片一致。 | [control_game_visual_first_grok_raw.mp4](assets/examples/control-game-case/control_game_visual_first_grok_raw.mp4) |
 | 实际尾帧 | 从生成视频主视频流抽出的真实尾帧。 | <img src="assets/examples/control-game-case/tail_actual_control_game.png" width="220" alt="control game actual tail frame"> |
 | 抽帧联络表 | 检查街机、靶线、人物和操控线是否按顺序出现。 | <img src="assets/examples/control-game-case/contact_sheet_control_game.png" width="520" alt="control game contact sheet"> |
