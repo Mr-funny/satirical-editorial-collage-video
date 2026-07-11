@@ -6,12 +6,12 @@ Use this sequence when recreating the reference logic:
 
 | Beat | Purpose | Visual change | Motion |
 | --- | --- | --- | --- |
-| 1 | Establish context | background, headline, framing | paper texture drift only; keep camera locked |
+| 1 | Establish context | background, empty stage, optional anchor prop | paper texture drift only; keep camera locked |
 | 2 | Reveal metaphor | main prop/object | pop-in, slide, bounce, mechanical tick |
 | 3 | Shift meaning | prop/object changes state | label changes, chain loosens, stamp fades, lock opens, blueprint becomes grid |
 | 4 | Human action | character or choice path | enter frame, exit frame, split into alternatives, start looped action |
-| 5 | Data/callouts | icons, labels, symbols, relationship lines | one-by-one float, orbit, connect, disconnect, tick-synced entrance |
-| 6 | Optional payoff | full composition | cohesive loop, final accent, title beat |
+| 5 | Data/callouts | icons, tiny tags, symbols, relationship lines | one-by-one float, orbit, connect, disconnect, tick-synced entrance |
+| 6 | Optional payoff | full composition | cohesive loop, final accent, stable visual punchline |
 
 The key is not the exact objects. The key is sequencing visible ideas while preserving everything already established.
 
@@ -30,11 +30,31 @@ For 1-3 second clips, use one major visible change. For Grok/Seedance 6-second i
 Use a sparse first frame when the clip's point is staged appearance. This is the image 1 prompt in a first/tail workflow. Include only:
 
 - locked paper panel/background
-- core label or title
 - one anchor object if needed for scale
 - generous empty space where the metaphor will assemble
+- optional tiny prop labels only if they clarify the object
 
-Do not include the full cast of props, icons, characters, and final relationship lines in the first frame. Generate a separate full tail frame prompt for the final composition.
+Do not include the full cast of props, icons, characters, and final relationship lines in the first frame. Do not rely on a title to explain the idea. Generate a separate full tail frame prompt for the final composition.
+
+## Visual-First Rule
+
+The scene must read through image and motion before it reads through words. Treat text as a prop, not as the argument.
+
+Prefer:
+
+- a red mask lifting to reveal a cracked glass heart and shrinking shield
+- an arcade joystick left untouched while a figure steps outside the target range
+- a clock winding down while a hand blocks paper fuel from reaching a flame
+- puppet strings going slack, a lock opening, a stamp fading, arrows rerouting
+
+Avoid:
+
+- large headline cards
+- dynamic PPT layouts
+- subtitles explaining the thesis
+- a poster where the text is more important than the objects
+
+If words are necessary, keep them tiny and diegetic: printed on a tag, dial, file tab, street sign, game button, stamp, or gauge.
 
 Recommended 6-second rhythm:
 
@@ -88,7 +108,7 @@ Do not reveal the full tail composition early.
 0.6-1.6s: first major sticker enters.
 1.6-2.6s: primary prop group enters one by one.
 2.6-3.8s: character group enters one by one.
-3.8-4.8s: icons, labels, question marks, arrows, or relationship lines enter.
+3.8-4.8s: icons, tiny tags, question marks, arrows, or relationship lines enter.
 4.8-5.5s: small details, shadows, and jitter settle.
 5.5-6.0s: hold a stable final frame close to image 2.
 ```
@@ -134,7 +154,7 @@ Use this look when the user mentions the reference style:
 
 - flat editorial illustration mixed with soft 3D paper cutout depth
 - warm off-white paper grain, emotion-led panel color, black ink accents, one or two sharp accent colors
-- single paper panel or vintage editorial layout, large clean headline, simple geometric composition
+- single paper panel or vintage editorial layout, simple geometric composition, optional tiny diegetic labels
 - gentle halftone, risograph texture, imperfect ink edges
 - kinetic collage motion: pop, slide, float, bob, rotate, snap
 - tactile props with clear silhouette
@@ -165,8 +185,8 @@ Scene: [blank/sparse starting state].
 Persistent style: [style string repeated verbatim].
 Emotion and palette: [dominant emotion, panel color, accent colors, why].
 Composition: [camera/framing/layout].
-Visible elements: [background, label, optional anchor object only].
-Text: [exact text if any], clean readable typography.
+Visible elements: [background and optional anchor object only].
+Text policy: no large title; use no text or only tiny prop labels unless exact words are required.
 Lighting/color: [palette].
 Avoid: no [tail-frame elements], no characters, no icons, no relationship lines, no style drift.
 ```
@@ -180,7 +200,7 @@ Persistent style: [same style string repeated verbatim].
 Emotion and palette: [same dominant emotion, same panel color, same accents].
 Composition: [same camera/framing/layout].
 Final elements: [main prop, characters, icons, labels, relationship lines].
-Text: [exact text if any], clean readable typography.
+Text policy: visual metaphor must read without text; any words should be small prop labels, not the main message.
 Lighting/color: [same palette].
 Avoid: no alternate style, no unrelated objects, no unreadable text.
 ```

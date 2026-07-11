@@ -9,6 +9,8 @@ description: Generate staged satirical editorial collage videos from pasted text
 
 Convert a pasted script, argument, or single long-shot idea into a chain of short satirical editorial collage clips. Each clip must be planned as a **first frame -> tail frame -> animation prompt** unit. The first frame is sparse, the tail frame is the intended final composition, and the animation prompt controls how the video travels between them.
 
+The image and motion carry the idea. Do not make a text poster, title card, dynamic PPT, or caption-led explainer unless the user explicitly asks for that. Large text is optional and usually undesirable. If text appears, treat it as a small physical prop: a tiny tag on a bottle, a label on a dial, a stamp on a file, a scale marking, a street sign, or a one-word sticker. The metaphor should still read if every word is blurred.
+
 Default tool chain:
 
 1. Use GPT/Nano Banana style image generation for first-frame and tail-frame stills.
@@ -17,13 +19,13 @@ Default tool chain:
 
 Use three layers of rhythm:
 
-1. **Text-to-metaphor rhythm:** read the script, choose a compact excerpt, identify conflict/irony, and choose one visible metaphor.
+1. **Text-to-metaphor rhythm:** read the script, choose a compact excerpt, identify conflict/irony, and choose one visible metaphor that can be understood mostly without words.
 2. **Frame rhythm:** write one prompt for the sparse first frame and one prompt for the fuller tail frame.
 3. **Inside-clip rhythm:** write a 6-second micro-timeline that gets from the first frame to the tail frame through ordered beats: hold blank stage, pop in prop, add doors/characters/icons, transform objects, then settle.
 
 Prefer clear staged changes over busy all-at-once prompts. Keep camera, palette, typography, and background consistent across clips. Lock already-visible elements unless that element is the named thing changing.
 
-Start sparse. Do not generate a fully populated first frame when the intended animation is staged. A strong first frame usually contains only the locked background, text/label, and maybe one anchor prop. The tail frame may be full and specific. Let the video add the main metaphor, character, icons, labels, or choice paths one by one. Start motion only after the relevant elements have appeared and settled.
+Start sparse. Do not generate a fully populated first frame when the intended animation is staged. A strong first frame usually contains only the locked background, empty stage, and maybe one anchor prop. Avoid mandatory titles. The tail frame may be full and specific. Let the video add the main metaphor, character, icons, tiny labels, or choice paths one by one. Start motion only after the relevant elements have appeared and settled.
 
 Supported visual changes:
 
@@ -41,11 +43,12 @@ Supported visual changes:
 3. Extract the target format, duration, tools, and available reference images/video.
 4. Choose the panel color from the text emotion. Do not default to a green board. Use color as narrative pressure: green for analytical control, red/coral for anger or alarm, yellow/mustard for irony, blue/gray for distance or melancholy, black/cream for bureaucracy or menace.
 5. Identify stable elements, first-frame elements, tail-frame elements, entering elements, exiting elements, transforming elements, relationship changes, and motion-only elements.
-6. Create a clip chain where each clip has:
+6. Decide the visual proof before writing any text: `main object`, `what happens to it`, `who controls the motion`, and `what changes by the final second`. Only after that decide whether any tiny prop label is needed.
+7. Create a clip chain where each clip has:
    - `first_frame_prompt`: sparse starting image
    - `tail_frame_prompt`: full intended final image
    - `animation_prompt`: first-to-tail motion instructions
-7. For each clip, write:
+8. For each clip, write:
    - selected excerpt and reasoning
    - emotion, palette, and panel color rationale
    - first-frame image prompt for GPT/Nano Banana
@@ -54,15 +57,15 @@ Supported visual changes:
    - negative prompt
    - continuity notes
    - assembly timing and transition notes
-8. Generate images first. Use GPT/Nano Banana to create the first frame and tail frame. Then use Grok/Seedance with both frames when the tool supports first/tail references.
-9. If the user has local image and video tools, produce tool-ready prompts and command placeholders instead of assuming exact CLI flags.
-10. Add sound design notes when useful: for this style, favor retro jazz percussion, light clock ticks, brushed drums, tape warmth, and tight stingers on element entrances, exits, or transformations.
+9. Generate images first. Use GPT/Nano Banana to create the first frame and tail frame. Then use Grok/Seedance with both frames when the tool supports first/tail references.
+10. If the user has local image and video tools, produce tool-ready prompts and command placeholders instead of assuming exact CLI flags.
+11. Add sound design notes when useful: for this style, favor retro jazz percussion, light clock ticks, brushed drums, tape warmth, and tight stingers on element entrances, exits, or transformations.
 
 ## First/Tail Frame Logic
 
 Prefer first/tail-frame generation for serious satirical editorial collage videos because it separates composition from motion:
 
-- **First frame prompt:** describe the blank or sparse stage. Include exact aspect ratio, background, label text, paper texture, and empty space. Explicitly exclude final elements.
+- **First frame prompt:** describe the blank or sparse stage. Include exact aspect ratio, background, paper texture, and empty space. Include no large title unless the user explicitly asks for one. Explicitly exclude final elements.
 - **Tail frame prompt:** describe the final composition with all important elements present. This is where visual certainty comes from.
 - **Animation prompt:** describe how to move from first to tail. It should reference both images and impose a timeline. The model should not invent a new final layout.
 
@@ -75,10 +78,10 @@ Conflict/Irony: [what makes it visual]
 Metaphor: [paper-collage scene]
 
 First frame prompt:
-[sparse stage, exact text, empty zones, avoid final elements]
+[sparse stage, empty zones, optional tiny prop labels only, avoid final elements]
 
 Tail frame prompt:
-[full final composition, exact final elements, same style/camera/palette]
+[full final composition, exact final elements, same style/camera/palette, idea legible through objects and motion]
 
 Animation prompt:
 Use image 1 as the exact first frame and image 2 as the target tail frame.
@@ -87,8 +90,8 @@ Do not start from image 2. Do not crossfade. Do not morph the whole image at onc
 0.6-1.6s: first major sticker enters.
 1.6-2.6s: second group enters.
 2.6-3.8s: characters or secondary props enter.
-3.8-4.8s: icons/question marks/relationship lines enter.
-4.8-5.5s: small details and shadows settle.
+3.8-4.8s: icons, arrows, relationship lines, small tags, or symbolic details enter.
+4.8-5.5s: small details, shadows, and object relationships settle.
 5.5-6.0s: hold stable tail frame close to image 2.
 ```
 
@@ -132,6 +135,7 @@ Palette: [panel color + accent colors chosen from the emotion]
 Metaphor: [visible scene]
 Stable frame: [what must not change]
 Change beats: [entrance, exit, transformation, relationship change, motion/state change]
+Text policy: [no large title; optional tiny prop labels only if they clarify objects]
 Final tail frame: [stable state for continuation]
 ```
 
@@ -184,8 +188,8 @@ Minimal example:
 ```bash
 python3 scripts/build_satirical_editorial_collage_plan.py \
   --concept "a woman running inside a hamster wheel while productivity icons float in" \
-  --elements "background+title,hamster wheel,woman runner,icons" \
-  --style "retro editorial collage, warm paper texture, jazz percussion, clock tick rhythm" \
+  --elements "empty paper panel,hamster wheel,woman runner,icons" \
+  --style "visual-first retro editorial collage, warm paper texture, tiny diegetic labels only, jazz percussion, clock tick rhythm" \
   --out ./out/productivity-wheel
 ```
 
@@ -204,6 +208,7 @@ Read `references/style-and-staging.md` when you need more detailed shot grammar,
 - For very short clips, keep one narrative change per shot. For 6-second Grok clips, use a micro-timeline with several ordered changes if the background and existing elements can remain locked.
 - Do not regenerate the whole scene with unrelated composition changes between shots.
 - Repeat exact wording for persistent art direction, aspect ratio, camera, character identity, typography style, and palette.
+- Do not solve the scene with a big headline. Prefer symbolic objects, transformations, blocked paths, loosened strings, stamps, masks, cages, clocks, game controls, weather, or bodily scale changes.
 - Make each image prompt describe a complete final frame for that shot, not only the new element.
 - Make each video prompt describe motion from the previous shot state to the current shot state.
 - In Grok prompts, include explicit timing beats such as `0.0-0.8s hold`, `0.8-2.0s prop enters`, `2.0-3.2s settle`, `3.2-4.4s character enters`, `4.4-6.0s motion/icons`.

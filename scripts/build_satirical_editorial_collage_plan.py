@@ -12,7 +12,7 @@ from textwrap import dedent
 DEFAULT_NEGATIVE = (
     "photorealism, busy background, unreadable text, extra limbs, extra characters, "
     "logo artifacts, random UI, warped typography, camera angle change, style drift, "
-    "flicker, sudden object replacement"
+    "flicker, sudden object replacement, text-heavy poster, big title card, subtitles"
 )
 
 
@@ -47,7 +47,7 @@ def infer_palette(emotion: str, source_text: str, concept: str) -> tuple[str, st
 
 def shot_role(index: int, total: int) -> str:
     if index == 1:
-        return "establish background and typographic context"
+        return "establish sparse visual stage"
     if index == 2:
         return "introduce the main metaphor or prop"
     if index == total and total > 3:
@@ -58,7 +58,7 @@ def shot_role(index: int, total: int) -> str:
 def motion_for(index: int, element: str) -> str:
     lower = element.lower()
     if index == 1:
-        return "subtle paper-grain drift, a tiny camera push, headline settling into place"
+        return "subtle paper-grain drift, a tiny camera push, optional anchor prop settling into place"
     if any(word in lower for word in ["text", "title", "headline", "文字", "标题"]):
         return "type snaps in on a tick, then gently settles"
     if any(word in lower for word in ["icon", "icons", "图标", "symbol", "badge"]):
@@ -88,8 +88,8 @@ def micro_timeline_for(index: int, element: str, duration: float) -> str:
         return dedent(
             """
             0.0-0.8s: hold the clean source frame steady with subtle paper-grain flicker.
-            0.8-2.0s: headline and torn-paper caption settle with tiny handmade stop-motion jitter.
-            2.0-4.8s: keep the panel, text, shadows, and composition locked; add only ambient paper texture drift.
+            0.8-2.0s: an optional anchor prop settles with tiny handmade stop-motion jitter.
+            2.0-4.8s: keep the panel, shadows, and composition locked; add only ambient paper texture drift.
             4.8-6.0s: hold a stable tail frame suitable for the next clip.
             """
         ).strip()
@@ -165,7 +165,7 @@ def micro_timeline_for(index: int, element: str, duration: float) -> str:
 
 
 def first_frame_prompt(args: argparse.Namespace, idx: int, persistent: list[str]) -> str:
-    visible = ", ".join(persistent) if persistent else "only the locked background, label, and empty staging space"
+    visible = ", ".join(persistent) if persistent else "only the locked background, empty staging space, and optional anchor prop"
     avoid = "the next staged element, final icons, final characters, dense relationship lines"
     emotion, palette = infer_palette(args.emotion, args.source_text, args.concept)
     return dedent(
@@ -177,9 +177,10 @@ def first_frame_prompt(args: argparse.Namespace, idx: int, persistent: list[str]
         Starting state: {visible}.
         Persistent style: {args.style}.
         Composition: {args.composition}.
-        Text: {args.text}.
+        Visual-first rule: the idea must read through objects, relationships, and motion; do not make a poster or dynamic PPT.
+        Text policy: {args.text}. If text is not explicitly required, use no large words; tiny prop labels only.
         Keep generous empty space for staged sticker entrances.
-        Avoid: {avoid}, extra objects, alternate characters, style drift, unreadable text.
+        Avoid: {avoid}, big headline, subtitle, explanatory caption, extra objects, alternate characters, style drift, unreadable text.
         """
     ).strip()
 
@@ -196,9 +197,10 @@ def tail_frame_prompt(args: argparse.Namespace, visible: list[str], element: str
         Persistent style: {args.style}.
         Composition: {args.composition}.
         Primary final addition or change: {element}.
-        Text: {args.text}.
-        Make this frame visually complete, readable, and suitable as the target tail frame for reference-to-video.
-        Avoid: extra objects, alternate characters, style drift, unreadable text.
+        Visual-first rule: the final meaning must be carried by the objects, transformations, blocked paths, loosened strings, stamps, masks, clocks, game controls, weather, or scale changes.
+        Text policy: {args.text}. Any words must be small physical labels on props, not the main message.
+        Make this frame visually complete, readable without text, and suitable as the target tail frame for reference-to-video.
+        Avoid: big headline, subtitle, explanatory caption, extra objects, alternate characters, style drift, unreadable text.
         """
     ).strip()
 
@@ -223,6 +225,7 @@ def build_plan(args: argparse.Namespace) -> list[dict]:
             Animate from image 1, the sparse first frame, toward image 2, the full tail frame, over {round(duration, 2)} seconds.
             Keep the camera, background, typography, shadows, and sticker style consistent.
             New staged element or beat group: {element}.
+            The viewer should understand the idea through visual metaphor and movement. Do not add big title cards, subtitles, or explanatory captions.
             Micro-timeline:
             {micro_timeline_for(idx, element, duration)}
             First/tail rules: use image 1 as the exact starting state and image 2 as the target final state. Do not start from image 2. Do not crossfade. Do not morph the whole image at once. Do not reveal the full tail composition early.
@@ -252,8 +255,9 @@ def build_plan(args: argparse.Namespace) -> list[dict]:
                 Composition: {args.composition}.
                 New visible element in this shot: {element}.
                 Continuity: {continuity}.
-                Text: {args.text}.
-                No extra objects, no alternate characters, no style drift.
+                Visual-first rule: communicate through objects, transformations, and relationships, not text.
+                Text policy: {args.text}. Tiny prop labels only if needed.
+                No big headline, no subtitle, no extra objects, no alternate characters, no style drift.
                 """
             ).strip(),
             "animation_prompt": animation_prompt,
@@ -357,7 +361,7 @@ def write_outputs(out_dir: Path, shots: list[dict], args: argparse.Namespace) ->
             f"Save or copy the generated video exactly to: {target_video}.",
             f"Duration: {grok_duration} seconds.",
             "Resolution: 720p.",
-            "No subtitles, no on-screen text, no watermark.",
+            "No subtitles, no big title cards, no explanatory captions, no watermark. Preserve only tiny prop labels already present in the reference frames.",
             "If generated media is stored in the Grok session videos folder, copy that mp4 to the requested path.",
             "At the end, print only the final mp4 path or the exact reason it failed.",
         ])
@@ -398,9 +402,9 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--excerpt", default="", help="Selected excerpt to visualize.")
     parser.add_argument("--elements", required=True, help="Comma-separated staged elements in entrance order.")
     parser.add_argument("--emotion", default="", help="Optional dominant emotion. If omitted, infer from concept/source text.")
-    parser.add_argument("--style", default="retro editorial collage, warm paper texture, muted colors, clean readable type")
+    parser.add_argument("--style", default="visual-first satirical editorial collage animation, warm paper texture, muted colors, tiny diegetic labels only")
     parser.add_argument("--composition", default="locked camera, centered editorial layout, clear negative space")
-    parser.add_argument("--text", default="no extra text unless specified by the user")
+    parser.add_argument("--text", default="no large title text; optional tiny prop labels only if they clarify objects")
     parser.add_argument("--aspect", default="9:16 vertical")
     parser.add_argument("--duration", type=float, default=8.0, help="Total duration in seconds.")
     parser.add_argument("--audio", default="retro jazz percussion with light clock tick bed")
